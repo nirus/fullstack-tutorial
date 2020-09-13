@@ -1,9 +1,12 @@
 import React from 'react';
 import { gql, useMutation } from '@apollo/client';
 
-import { LoginForm, Loading } from '../components';
+import { LoginForm } from '../components';
 import { isLoggedInVar } from '../cache';
 import * as LoginTypes from './__generated__/login';
+import { v5 as uuidNameSpace, v4 as getNS } from 'uuid';
+
+const RequestNameSpace = getNS();
 
 export const LOGIN_USER = gql`
   mutation Login($email: String!) {
@@ -25,12 +28,10 @@ export default function Login() {
         localStorage.setItem('token', login.token as string);
         localStorage.setItem('userId', login.id as string);
         isLoggedInVar(true);
-      }
+      },
+      context:{ requestTrackerId: uuidNameSpace('LOGIN', RequestNameSpace) }
     }
   );
 
-  if (loading) return <Loading />;
-  if (error) return <p>An error occurred</p>;
-
-  return <LoginForm login={login} />;
+  return <LoginForm error={error} loading={loading} login={login} />;
 }

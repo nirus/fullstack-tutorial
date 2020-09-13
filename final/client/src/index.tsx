@@ -6,7 +6,11 @@ import {
   ApolloProvider,
   useQuery,
   gql,
+  ApolloLink,
+  from,
+  createHttpLink,
 } from '@apollo/client';
+import { cancelRequestLink } from './cancelRequest';
 
 import Pages from './pages';
 import Login from './pages/login';
@@ -20,18 +24,29 @@ export const typeDefs = gql`
   }
 `;
 
+const httpLink = createHttpLink({ uri: 'http://localhost:4000/graphql' });
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  operation.setContext({
+    headers: {
+      authorization: localStorage.getItem('token') || '',
+      'client-name': 'Space Explorer [web]',
+      'client-version': '1.0.0', 
+    },
+    typeDefs,
+    resolvers: {},
+  });
+
+  return forward(operation);
+})
+
 // Set up our apollo-client to point at the server we created
 // this can be local or a remote endpoint
 const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
   cache,
-  uri: 'http://localhost:4000/graphql',
-  headers: {
-    authorization: localStorage.getItem('token') || '',
-    'client-name': 'Space Explorer [web]',
-    'client-version': '1.0.0',
-  },
-  typeDefs,
-  resolvers: {},
+  link: from([ authMiddleware, cancelRequestLink, httpLink ]),
+  queryDeduplication: false
 });
 
 /**

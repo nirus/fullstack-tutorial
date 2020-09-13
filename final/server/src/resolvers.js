@@ -1,5 +1,13 @@
 const { paginateResults } = require('./utils');
 
+
+//Simulate the delay
+function sleeper(ms) {
+  return function(x) {
+    return new Promise(resolve => setTimeout(() => resolve(x), ms));
+  };
+}
+
 module.exports = {
   Query: {
     launches: async (_, { pageSize = 20, after }, { dataSources }) => {
@@ -64,7 +72,9 @@ module.exports = {
       };
     },
     login: async (_, { email }, { dataSources }) => {
-      const user = await dataSources.userAPI.findOrCreateUser({ email });
+      
+      //Intentional delay to show the cancelrequest @ client-side
+      const user = await dataSources.userAPI.findOrCreateUser({ email }).then(sleeper(5000));
       if (user) {
         user.token = new Buffer(email).toString('base64');
         return user;

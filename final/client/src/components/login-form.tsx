@@ -9,9 +9,12 @@ import { ReactComponent as Curve } from '../assets/curve.svg';
 import { ReactComponent as Rocket } from '../assets/rocket.svg';
 import { colors, unit } from '../styles';
 import * as LoginTypes from '../pages/__generated__/login';
+import { Loading } from '../components';
 
 interface LoginFormProps {
   login: (a: { variables: LoginTypes.LoginVariables }) => void;
+  error: any,
+  loading: boolean
 }
 
 interface LoginFormState {
@@ -32,6 +35,7 @@ export default class LoginForm extends Component<LoginFormProps, LoginFormState>
   };
 
   render() {
+    if (this.props.error) return <p>An error occurred</p>;
     return (
       <Container>
         <Header>
@@ -50,6 +54,7 @@ export default class LoginForm extends Component<LoginFormProps, LoginFormState>
             onChange={(e) => this.onChange(e)}
           />
           <Button type="submit">Log in</Button>
+          {this.props.loading ? <Loading /> : null}
         </StyledForm>
       </Container>
     );
