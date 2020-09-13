@@ -5,7 +5,7 @@ This project is to illustrates the example to <b>cancel the Apollo request</b> u
 Important files to watch for:
 
 1. Core library- [cancelRequest.ts](https://github.com/nirus/fullstack-tutorial/blob/master/final/client/src/cancelRequest.ts)
-2. Component usage - [Login-form.tsx](https://github.com/nirus/fullstack-tutorial/blob/master/final/client/src/components/login-form.tsx)
+2. Component usage - [login.tsx](https://github.com/nirus/fullstack-tutorial/blob/master/final/client/src/pages/login.tsx)
 3. Final middleware wiring - [index.tsx](https://github.com/nirus/fullstack-tutorial/blob/master/final/client/src/index.tsx)
 
 
