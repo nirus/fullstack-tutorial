@@ -2,7 +2,9 @@
 
 This project is to illustrates the example to <b>cancel the Apollo request</b> using AbortController thus preventing duplicates  for the same request.
 
-Important files to watch for:
+## Read this [blog](https://coder.rocks/javascript/apollo-graphql-client-abort-pending-requests) to understand the codebase.
+
+**Important files to watch for:**
 
 1. Core library- [cancelRequest.ts](https://github.com/nirus/fullstack-tutorial/blob/master/final/client/src/cancelRequest.ts)
 2. Component usage - [login.tsx](https://github.com/nirus/fullstack-tutorial/blob/master/final/client/src/pages/login.tsx)
