@@ -2,7 +2,7 @@
 
 This project is to illustrates the example to <b>cancel the Apollo request</b> using AbortController thus preventing duplicates  for the same request.
 
-## Read this [blog](https://coder.rocks/javascript/apollo-graphql-client-abort-pending-requests) to understand the codebase.
+## Read this [blog](https://stackoverflow.com/questions/59245966/stop-pending-requests-with-apollo-client-hooks/63891561#63891561) to understand the codebase.
 
 **Important files to watch for:**
 
